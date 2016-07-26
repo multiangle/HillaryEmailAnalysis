@@ -94,25 +94,25 @@ def deal_name_mail_format(input):
 # info = getStructedData('https://wikileaks.org/dnc-emails/get/58')
 # print(json.dumps(info,indent=4))
 
-base_url = 'https://wikileaks.org/dnc-emails/get/{page}'
-base_path = '.\static\{page}.pkl'
-gotten_id = os.listdir('.\static')
-gotten_id = [int((x.split('.'))[0]) for x in gotten_id]
-task_pool = list(range(1,5000))
-while True :
-    if task_pool.__len__()==0:
-        break
-    task_id = task_pool.pop(0)
-    if task_id in gotten_id:
-        continue
-    url = base_url.format(page = task_id)
-    path = base_path.format(page = task_id)
-    try:
-        info = getStructedData(url)
-        FI.save_pickle(info,path)
-        print('{t} succeed'.format(t=task_id))
-    except Exception as e:
-        task_pool.append(task_id)
-        print('{t} failed <--<--<--<--'.format(t=task_id))
-        print(e)
+# base_url = 'https://wikileaks.org/dnc-emails/get/{page}'
+# base_path = '.\static\{page}.pkl'
+# gotten_id = os.listdir('.\static')
+# gotten_id = [int((x.split('.'))[0]) for x in gotten_id]
+# task_pool = list(range(5000,10000))
+# while True :
+#     if task_pool.__len__()==0:
+#         break
+#     task_id = task_pool.pop(0)
+#     if task_id in gotten_id:
+#         continue
+#     url = base_url.format(page = task_id)
+#     path = base_path.format(page = task_id)
+#     try:
+#         info = getStructedData(url)
+#         FI.save_pickle(info,path)
+#         print('{t} succeed'.format(t=task_id))
+#     except Exception as e:
+#         task_pool.append(task_id)
+#         print('{t} failed <--<--<--<--'.format(t=task_id))
+#         print(e)
 
