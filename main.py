@@ -14,8 +14,7 @@ if 'temp_res' not in files:
 
 # 从wikileaks下载邮件内容并生成结构化数据
 # ===============   ATTENTION   =============== :
-# 由于邮件格式较繁杂，因此无法全部解析（5%左右），所以这部分会出现死循环的情况
-# 所以看下载的差不多了就手动中止吧，见谅    (滑稽)
+# 由于邮件格式较繁杂，因此无法全部解析（5%左右）
 base_url = 'https://wikileaks.org/dnc-emails/get/{page}'
 base_path = '.\static\{page}.pkl'
 gotten_id = os.listdir('.\static')
@@ -35,7 +34,7 @@ while True :
         FI.save_pickle(info,path)
         print('{t} succeed'.format(t=task_id))
     except Exception as e:
-        task_pool.append(task_id)
+        # task_pool.append(task_id)
         print('{t} failed <--<--<--<--'.format(t=task_id))
         print(e)
 print('文件已下载完毕')
