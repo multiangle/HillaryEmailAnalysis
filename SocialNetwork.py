@@ -16,6 +16,8 @@ def generate_node_and_edge():
         # 处理 From情况
         try:
             sender_mail = info['From']['mail']
+            ori_mail = sender_mail
+            sender_mail = sender_mail.lower()
         except:
             continue # 如果其中没有From 则该邮件作废
         sender_node = node_list.get(sender_mail)
@@ -26,7 +28,8 @@ def generate_node_and_edge():
                 mail = sender_mail,
                 send = 1,
                 receive = 0,
-                cc = 0
+                cc = 0,
+                ori_mail = ori_mail
             )
             if info.get('name'):
                 node_list[sender_mail]['name'] = info['name']
@@ -37,6 +40,8 @@ def generate_node_and_edge():
             continue
         for receiver in receiver_list:
             mail = receiver['mail']
+            ori_mail = mail
+            mail = mail.lower()
             node = node_list.get(mail)
             if node:
                 node['receive'] += 1
@@ -45,7 +50,8 @@ def generate_node_and_edge():
                     mail = mail,
                     send = 0 ,
                     receive = 1,
-                    cc = 0
+                    cc = 0,
+                    ori_mail = ori_mail
                 )
                 if receiver.get('name'):
                     node_list[mail]['name'] = receiver['name']
@@ -61,6 +67,8 @@ def generate_node_and_edge():
         if cc_list:
             for cc in cc_list:
                 mail = cc['mail']
+                ori_mail = mail
+                mail = mail.lower()
                 node = node_list.get(mail)
                 if node:
                     node['cc'] += 1
@@ -69,7 +77,8 @@ def generate_node_and_edge():
                         mail = mail,
                         send = 0 ,
                         receive = 0 ,
-                        cc = 1
+                        cc = 1,
+                        ori_mail = ori_mail
                     )
                     if cc.get('name'):
                         node_list[mail]['name'] = cc['name']
